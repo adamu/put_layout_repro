@@ -6,6 +6,7 @@ defmodule PutLayoutReproWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {PutLayoutReproWeb.LayoutView, :root}
+    plug :put_layout, {PutLayoutReproWeb.LayoutView, "custom.html"}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -15,7 +16,7 @@ defmodule PutLayoutReproWeb.Router do
   end
 
   scope "/", PutLayoutReproWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
     get "/", PageController, :index
   end
@@ -36,9 +37,9 @@ defmodule PutLayoutReproWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: PutLayoutReproWeb.Telemetry
+      live_dashboard("/dashboard", metrics: PutLayoutReproWeb.Telemetry)
     end
   end
 
@@ -48,7 +49,7 @@ defmodule PutLayoutReproWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
