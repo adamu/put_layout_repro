@@ -6,7 +6,14 @@ defmodule PutLayoutReproWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {PutLayoutReproWeb.LayoutView, :root}
+    # ---------------------------------------------------------------
+    # Working
     plug :put_layout, {PutLayoutReproWeb.LayoutView, "custom.html"}
+    # Fails to compile
+    # plug :put_layout, html: {PutLayoutReproWeb.LayoutView, "custom.html"}
+    # Uses App layout
+    # plug :put_layout, html: {PutLayoutReproWeb.LayoutView, :custom}
+    # ---------------------------------------------------------------
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
